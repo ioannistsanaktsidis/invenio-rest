@@ -115,12 +115,12 @@ class InvalidContentType(RESTException):
 
 class RESTValidationError(RESTException):
     """A standard REST validation error."""
-
     code = 400
     """HTTP Status code."""
 
-    description = 'Validation error.'
-    """Error description."""
+    def __init__(self, description=None, error=None, **kwargs):
+        super(RESTValidationError, self).__init__(**kwargs)
+        self.description = 'Validation error: {0}.'.format(error.message)
 
 
 class SameContentException(RESTException):
